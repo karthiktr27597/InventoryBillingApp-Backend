@@ -2,7 +2,6 @@ import { product } from "../Models/product.js"
 
 export const addProduct = async (req, res) => {
     try {
-        console.log(req.body)
         const { name, description, price, quantity } = req.body
 
         if (!name || !price || !quantity) {
@@ -15,8 +14,6 @@ export const addProduct = async (req, res) => {
             price,
             quantity
         })
-
-        console.log(data)
 
         await data.save()
             .then(() => {
@@ -75,7 +72,6 @@ export const editProduct = async (req, res) => {
     try {
         const productId = req.params.productId;
         const updatedProductData = req.body;
-        console.log(updatedProductData)
 
         const updatedProduct = await product.findByIdAndUpdate(productId, updatedProductData, { new: true });
 

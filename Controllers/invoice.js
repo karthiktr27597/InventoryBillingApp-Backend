@@ -9,8 +9,6 @@ export const createInvoice = async (req, res) => {
 
     try {
         const { products, totalAmount } = req.body;
-        console.log(products, "products")
-        console.log("totalAmount", totalAmount)
 
         const invoiceProducts = [];
 
@@ -31,9 +29,6 @@ export const createInvoice = async (req, res) => {
                 return res.status(400).json({ error: `Insufficient quantity for product ${fetchedProduct.name}` });
             }
 
-            console.log(fetchedProduct.quantity, "db")
-            console.log(prod.quantity, "Invoice")
-
             fetchedProduct.quantity -= prod.quantity;  //  197 = 197-1  
             await fetchedProduct.save();
 
@@ -42,9 +37,6 @@ export const createInvoice = async (req, res) => {
                 quantity: prod.quantity,
                 subtotal: prod.quantity * prod.price
             });
-
-            // console.log(fetchedProduct, "save")
-            console.log("array", invoiceProducts)
         }
 
         const newInvoice = new invoice({
